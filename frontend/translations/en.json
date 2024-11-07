@@ -5,6 +5,7 @@
     "separator": ",",
     "online_users": "{count} are online",
     "made_by": "designed and developed by omidshabab.",
+    "register": "Register to Account",
     "lorem": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure mollitia at consectetur ducimus. ipsum dolor sit, amet consectetur adipisicing elit."
   },
   "lang": {
@@ -31,6 +32,11 @@
     "subtitle": "Let me know that your really want to logout or not",
     "yes_button": "Yes, Logout!",
     "close_button": "Cancel"
+  },
+  "register_modal": {
+    "title": "Login to Your Account",
+    "subtitle": "Access your account using Google",
+    "button": "Login with Google"
   },
   "server": {
     "error": "An error occurred while trying to connect to the server."

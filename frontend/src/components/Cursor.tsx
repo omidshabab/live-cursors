@@ -6,24 +6,33 @@ interface CursorProps {
      type?: CursorType
      position: CursorPosition
      isLocal?: boolean
+     text?: string,
 }
 
-const Cursor: React.FC<CursorProps> = ({ position, isLocal = false, type = "default" }) => {
+const Cursor: React.FC<CursorProps> = ({ position, isLocal = false, type = "default", text }) => {
      const cursorColor = isLocal ? "fill-[#EA580C]" : "fill-[#c2410c]";
      const borderColor = isLocal ? "#CC4D0A" : "#9a3412";
 
      return (
           <div
                className={cn(
-                    'absolute pointer-events-none z-[1000]',
+                    "absolute pointer-events-none z-[1000]",
                     isLocal && 'transition-all duration-100 ease-out'
                )}
                style={{ left: position.x, top: position.y }}>
 
                {type === "default" && (
-                    <div className="flex flex-row gap-x-[10px] items-center">
+                    <div className="flex flex-row gap-x-[8px] items-end">
                          {!isLocal && (
-                              <div>//</div>
+                              <div className="flex flex-row gap-x-[8px] items-center">
+                                   <div className="text-[12px] to-zinc-600 bg-primary/5 backdrop-blur-md rounded-full px-[10px] py-[4px] leading-[1rem]">
+                                        {text}
+                                   </div>
+
+                                   <div className="w-[25px] h-[25px] bg-primary/5 rounded-full backdrop-blur-md">
+
+                                   </div>
+                              </div>
                          )}
 
                          <svg viewBox="0 0 37 46" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[25px] h-[31px]">

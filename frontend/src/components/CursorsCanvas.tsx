@@ -6,6 +6,11 @@ import { CursorPosition, Client, CursorType } from '../types';
 import Cursor from './Cursor';
 import { AnimatedTooltip } from './ui/animated-tooltip';
 import { useTranslations } from 'next-intl';
+import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
+import IconButton from './IconButton';
+import { LogInIcon } from 'lucide-react';
+import { useModal } from '@/hooks/use-modal-store';
 
 const CursorsCanvas: React.FC = () => {
      const [cursorType, setCursorType] = useState<CursorType>("default")
@@ -16,6 +21,8 @@ const CursorsCanvas: React.FC = () => {
           y: 0,
           clientId: socket.id ?? ''
      });
+
+     const { onModalOpen } = useModal()
 
      const tGeneral = useTranslations("general")
 
@@ -113,8 +120,8 @@ const CursorsCanvas: React.FC = () => {
                     cursor: 'none',
                }}>
 
-               <div className="fixed top-0 flex w-full px-[50px] py-[30px] justify-between items-center cursor-none">
-                    <div className="flex flex-col gap-y-[5px]">
+               <div className="fixed top-0 flex w-full px-[25px] py-[15px] sm:px-[50px] sm:py-[30px] justify-between items-center cursor-none">
+                    <div className="flex flex-grow flex-col gap-y-[5px]">
                          <div className="text-[18px] font-bold text-text">
                               {tGeneral("cursors_dot")}
                          </div>
@@ -122,6 +129,29 @@ const CursorsCanvas: React.FC = () => {
                          <div className="text-[15px] text-zinc-800">
                               / {tGeneral("made_by")}
                          </div>
+                    </div>
+
+                    <div>
+                         <IconButton
+                              icon={LogInIcon}
+                              onClick={() => onModalOpen("register")}
+                              className={cn(
+                                   "block sm:hidden",
+                                   // !session.data && "hidden"
+                              )} />
+
+                         <Button
+                              onClick={() => onModalOpen("register")}
+                              onMouseEnter={() => setCursorType("pointer")}
+                              onMouseLeave={() => setCursorType("default")}
+                              variant="secondary"
+                              size="sm"
+                              className={cn(
+                                   "hidden sm:block cursor-none"
+                                   // session.data && "hidden"
+                              )}>
+                              {tGeneral("register")}
+                         </Button>
                     </div>
                </div>
 
@@ -142,13 +172,14 @@ const CursorsCanvas: React.FC = () => {
                          <Cursor
                               key={client.id}
                               position={client.position}
+                              text={client.id}
                          />
                     ))}
 
                <div
                     onMouseEnter={() => setCursorType("pointer")}
                     onMouseLeave={() => setCursorType("default")}
-                    className="fixed bottom-0 flex gap-x-[15px] w-full px-[50px] py-[30px] justify-center items-center cursor-none">
+                    className="fixed bottom-0 flex gap-x-[15px] w-full px-[25px] py-[15px] sm:px-[50px] sm:py-[30px] justify-center items-center cursor-none">
                     <div className="flex flex-row items-center justify-center">
                          <AnimatedTooltip items={people} />
                     </div>

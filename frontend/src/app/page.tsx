@@ -1,6 +1,7 @@
 "use client"
 
 import CursorsCanvas from "@/components/CursorsCanvas";
+import ModalProvider from "@/components/providers/ModalProvider";
 // import { useSearchParams } from "next/navigation";
 
 const Page = () => {
@@ -8,9 +9,12 @@ const Page = () => {
   // const username = searchParams.get("username") as string ?? null
 
   return (
-    <main>
+    <div
+      onContextMenu={(e) => e.preventDefault()}
+      className="w-full h-full">
+      <ModalProvider />
       <CursorsCanvas />
-    </main>
+    </div>
   );
 }
 
