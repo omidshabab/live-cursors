@@ -1,34 +1,58 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "@/styles/globals.css";
+import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
+import { LangDir, LangFont } from "@/lib/fonts";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 
-const geistSans = localFont({
-  src: "../assets/fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
+/* 
+    -- dynamic metadata based on locales --
+*/
+export async function generateMetadata(): Promise<Metadata> {
+  const tMetadata = await getTranslations("metadata")
 
-const geistMono = localFont({
-  src: "../assets/fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+  return {
+    title: (tMetadata)("name"),
+    description: (tMetadata)("desc"),
+  }
+}
 
-export const metadata: Metadata = {
-  title: "Live Cursors",
-  description: "by omidshabab.",
-};
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
+  const messages = await getMessages();
+
+  const font = LangFont(locale);
+  const dir = LangDir(locale);
+
   return (
-    <html lang="en">
+    <html lang={font} dir={dir}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+        className={cn(
+          font,
+          "relative antialiased flex h-screen w-full items-center justify-center overflow-scroll none-scroll-bar"
+        )}>
+        <NextIntlClientProvider
+          locale={locale}
+          messages={messages}>
+          <main
+            className="w-full h-full bg-grid-black/[0.1] relative flex items-center justify-center">
+            <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
+            <div className="w-full z-20">
+              {children}
+            </div>
+          </main>
+          <Toaster
+            font={font}
+            others={{
+              position: "top-center",
+            }} />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

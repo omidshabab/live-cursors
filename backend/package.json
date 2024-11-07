@@ -4,7 +4,10 @@
   "private": true,
   "main": "src/index.ts",
   "scripts": {
-    "dev": "PORT=8080 nodemon"
+    "build": "rimraf dist && tsc",
+    "start": "node dist/index.js",
+    "dev": "PORT=8080 nodemon --watch src --exec ts-node src/index.ts",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "express": "^4.21.1",
@@ -14,6 +17,7 @@
     "@types/express": "^5.0.0",
     "@types/node": "^22.9.0",
     "@types/socket.io": "^3.0.2",
+    "livekit-server-sdk": "^2.7.3",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",

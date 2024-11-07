@@ -8,3 +8,5 @@ export interface Client {
   id: string;
   position: CursorPosition;
 }
+
+export type CursorType = "default" | "pointer";

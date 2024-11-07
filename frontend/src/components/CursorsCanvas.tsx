@@ -2,16 +2,53 @@
 
 import React, { useEffect, useState } from 'react';
 import { socket } from '../lib/socket';
-import { CursorPosition, Client } from '../types';
+import { CursorPosition, Client, CursorType } from '../types';
 import Cursor from './Cursor';
+import { AnimatedTooltip } from './ui/animated-tooltip';
+import { useTranslations } from 'next-intl';
 
 const CursorsCanvas: React.FC = () => {
+     const [cursorType, setCursorType] = useState<CursorType>("default")
+
      const [clients, setClients] = useState<Client[]>([]);
      const [localPosition, setLocalPosition] = useState<CursorPosition>({
           x: 0,
           y: 0,
           clientId: socket.id ?? ''
      });
+
+     const tGeneral = useTranslations("general")
+
+     const people = [
+          {
+               id: 1,
+               name: tGeneral("lorem").slice(150),
+               designation: tGeneral("lorem").slice(150),
+               image:
+                    "https://avatars.githubusercontent.com/u/100057185?v=4",
+          },
+          {
+               id: 2,
+               name: tGeneral("lorem").slice(150),
+               designation: tGeneral("lorem").slice(150),
+               image:
+                    "https://avatars.githubusercontent.com/u/100057185?v=4",
+          },
+          {
+               id: 3,
+               name: tGeneral("lorem").slice(150),
+               designation: tGeneral("lorem").slice(150),
+               image:
+                    "https://avatars.githubusercontent.com/u/100057185?v=4",
+          },
+          {
+               id: 4,
+               name: tGeneral("lorem").slice(150),
+               designation: tGeneral("lorem").slice(150),
+               image:
+                    "https://avatars.githubusercontent.com/u/100057185?v=4",
+          }
+     ]
 
      useEffect(() => {
           const handleConnect = () => {
@@ -73,14 +110,32 @@ const CursorsCanvas: React.FC = () => {
                     width: '100vw',
                     height: '100vh',
                     position: 'relative',
-                    backgroundColor: '#f0f0f0',
-                    cursor: 'none', // Hide the default cursor
-               }}
-          >
-               {/* Local cursor */}
-               <Cursor position={localPosition} isLocal={true} />
+                    cursor: 'none',
+               }}>
 
-               {/* Remote cursors */}
+               <div className="fixed top-0 flex w-full px-[50px] py-[30px] justify-between items-center cursor-none">
+                    <div className="flex flex-col gap-y-[5px]">
+                         <div className="text-[18px] font-bold text-text">
+                              {tGeneral("cursors_dot")}
+                         </div>
+
+                         <div className="text-[15px] text-zinc-800">
+                              / {tGeneral("made_by")}
+                         </div>
+                    </div>
+               </div>
+
+               {/* 
+                    -- local cursor --
+               */}
+               <Cursor
+                    position={localPosition}
+                    isLocal={true}
+                    type={cursorType} />
+
+               {/* 
+                    -- remote cursors --
+               */}
                {clients
                     .filter(client => client.id !== socket.id)
                     .map(client => (
@@ -90,19 +145,17 @@ const CursorsCanvas: React.FC = () => {
                          />
                     ))}
 
-               {/* Debug info */}
                <div
-                    style={{
-                         position: 'fixed',
-                         bottom: 10,
-                         left: 10,
-                         fontSize: 12,
-                         cursor: 'default', // Restore default cursor for debug info
-                    }}
-               >
-                    Connected users: {clients.length + 1}
-                    <br />
-                    Your ID: {socket.id}
+                    onMouseEnter={() => setCursorType("pointer")}
+                    onMouseLeave={() => setCursorType("default")}
+                    className="fixed bottom-0 flex gap-x-[15px] w-full px-[50px] py-[30px] justify-center items-center cursor-none">
+                    <div className="flex flex-row items-center justify-center">
+                         <AnimatedTooltip items={people} />
+                    </div>
+
+                    <div className="text-zinc-600 max-w-[90px] text-[12px] font-medium">
+                         {tGeneral("online_users", { count: 5 })}
+                    </div>
                </div>
           </div>
      );

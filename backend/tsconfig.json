@@ -6,9 +6,11 @@
     "baseUrl": "src",
     "outDir": "dist",
     "sourceMap": true,
+    "skipLibCheck": true,
     "noImplicitAny": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/zodAutoGenSchemas": ["./prisma/zod/index"]
     },
     "baseUrl": "./"
   },

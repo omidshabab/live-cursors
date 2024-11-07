@@ -1,0 +1,38 @@
+{
+  "general": {
+    "cursors": "cursors",
+    "cursors_dot": "cursors.",
+    "separator": ",",
+    "online_users": "{count} are online",
+    "made_by": "designed and developed by omidshabab.",
+    "lorem": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure mollitia at consectetur ducimus. ipsum dolor sit, amet consectetur adipisicing elit."
+  },
+  "lang": {
+    "english": "english",
+    "persian": "persian",
+    "en": "EN",
+    "fa": "FA"
+  },
+  "metadata": {
+    "name": "cursors.",
+    "desc": ""
+  },
+  "not_found": {
+    "title": "Not found what you was looking for.",
+    "desc": "You can search it again or back to home page",
+    "button": "Back to Home Page"
+  },
+  "languages": {
+    "english": "English",
+    "persian": "Persian"
+  },
+  "logout_modal": {
+    "title": "Do you really want to logout?",
+    "subtitle": "Let me know that your really want to logout or not",
+    "yes_button": "Yes, Logout!",
+    "close_button": "Cancel"
+  },
+  "server": {
+    "error": "An error occurred while trying to connect to the server."
+  }
+}
