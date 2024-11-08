@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { LangDir, LangFont } from "@/lib/fonts";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import ModalProvider from "@/components/providers/ModalProvider";
 
 /* 
     -- dynamic metadata based on locales --
@@ -43,8 +44,10 @@ export default async function RootLayout({
           <main
             className="w-full h-full bg-grid-black/[0.1] relative flex items-center justify-center">
             <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
-            <div className="w-full z-20">
+            <div className="w-full">
               {children}
+
+              <ModalProvider />
             </div>
           </main>
           <Toaster

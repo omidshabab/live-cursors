@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 
 import RegisterModal from "../modals/RegisterModal";
