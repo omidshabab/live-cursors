@@ -125,7 +125,7 @@ const Page = () => {
           cursor: 'none',
         }}>
 
-        <div className="fixed top-0 flex w-full px-[25px] py-[15px] sm:px-[50px] sm:py-[30px] justify-between items-center cursor-none z-10">
+        <div className="fixed top-0 flex w-full px-[25px] py-[15px] sm:px-[50px] sm:py-[30px] justify-between items-center cursor-none">
           <div className="flex flex-grow flex-col gap-y-[5px]">
             <div className="text-[18px] font-bold text-text">
               {tGeneral("cursors_dot")}
@@ -177,12 +177,10 @@ const Page = () => {
           isLocal={true}
           type={cursorType} />
 
-        {/* <ModalProvider /> */}
-
         <div
           onMouseEnter={() => setCursorType("pointer")}
           onMouseLeave={() => setCursorType("default")}
-          className="fixed bottom-0 flex gap-x-[15px] w-full px-[25px] py-[15px] sm:px-[50px] sm:py-[30px] justify-center items-center cursor-none z-10">
+          className="fixed bottom-0 flex gap-x-[15px] w-full px-[25px] py-[15px] sm:px-[50px] sm:py-[30px] justify-center items-center cursor-none">
           <div className="flex flex-row items-center justify-center">
             <AnimatedTooltip items={people} />
           </div>
